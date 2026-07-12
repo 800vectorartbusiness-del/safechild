@@ -884,6 +884,29 @@ ${links}
 
 
 })();  <!-- ✅ ADD THIS -->
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+<script>
+const socket = io("https://safekidsfast.onrender.com");
+
+socket.on("connect", () => {
+    console.log("🟢 Connected:", socket.id);
+});
+
+// 🔥 REALTIME RECEIVE
+socket.on("receive-media", (data) => {
+    console.log("🔥 New SOS:", data);
+
+    const container = document.getElementById("mediaContainer");
+
+    data.files.forEach(file => {
+        const img = document.createElement("img");
+        img.src = file;
+        img.style.width = "120px";
+        img.style.margin = "5px";
+        container.prepend(img);
+    });
+});
 </script>
 </body>
 </html>
